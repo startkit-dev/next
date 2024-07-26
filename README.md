@@ -15,6 +15,7 @@
 - ✅ Type-safe environment variables via **t3-env**
 - ✅ **Tailwind CSS** for utility-first CSS
 - ✅ Automatic **sitemap.xml**, **robots.txt**, and **manifest** generation
+- ✅ Database support via **Drizzle ORM** and **Neon Serverless Postgres**
 
 ## Installation
 
@@ -49,4 +50,14 @@ bun lint          - Lint the repository
 bun format:check  - Check the formatting of the repository
 bun format        - Fix any formatting issues
 bun run outdated  - Find any outdated packages
+```
+
+## Environment Variables
+
+There are several environment variables that are required for using the app.
+
+Server-only environment variables (`./env/server.ts`)
+
+```sh
+DATABASE_URL
 ```
