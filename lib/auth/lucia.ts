@@ -4,22 +4,32 @@ import { env } from "@/env/server"
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle"
 import { Lucia } from "lucia"
 
+declare module "lucia" {
+  interface Register {
+    Lucia: typeof lucia
+    DatabaseUserAttributes: DatabaseUserAttributes
+  }
+}
+
+interface DatabaseUserAttributes {
+  githubId: number
+  username: string
+}
+
 const adapter = new DrizzlePostgreSQLAdapter(db, sessionsTable, usersTable)
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
-    // this sets cookies with super long expiration
-    // since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages
     expires: false,
     attributes: {
       // set to `true` when using HTTPS
       secure: env.NODE_ENV === "production"
     }
+  },
+  getUserAttributes: (attributes) => {
+    return {
+      githubId: attributes.githubId,
+      username: attributes.username
+    }
   }
 })
-
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia
-  }
-}

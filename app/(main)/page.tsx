@@ -3,8 +3,12 @@ import Link from "next/link"
 
 import { Logo } from "@/components/icons/brand/logo"
 import { Button } from "@/components/ui/button"
+import { logout } from "@/lib/auth/actions/logout"
+import { getSession } from "@/lib/auth/get-session"
 
-export default function Home() {
+export default async function Home() {
+  const { user } = await getSession()
+
   return (
     <main className="flex grow flex-col items-center justify-center">
       <div className="container flex max-w-md flex-col items-center gap-8 sm:items-start">
@@ -40,20 +44,27 @@ export default function Home() {
             </Link>
           </Button>
 
-          <Button
-            className="rounded-full"
-            size="lg"
-            variant="secondary"
-            asChild
-          >
-            <Link
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              rel="noopener noreferrer"
-              target="_blank"
+          {user ? (
+            <form action={logout}>
+              <Button
+                className="rounded-full"
+                size="lg"
+                type="submit"
+                variant="secondary"
+              >
+                Sign out
+              </Button>
+            </form>
+          ) : (
+            <Button
+              className="rounded-full"
+              size="lg"
+              variant="secondary"
+              asChild
             >
-              Read our docs
-            </Link>
-          </Button>
+              <Link href="/login/github">Login</Link>
+            </Button>
+          )}
         </div>
       </div>
     </main>

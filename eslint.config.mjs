@@ -44,6 +44,12 @@ export default tseslint.config(
         "warn",
         { prefer: "type-imports" }
       ],
+      "@typescript-eslint/no-misused-promises": [
+        "warn",
+        {
+          checksVoidReturn: false
+        }
+      ],
       "import/order": [
         "error",
         {

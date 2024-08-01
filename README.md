@@ -16,6 +16,7 @@
 - ✅ **Tailwind CSS** for utility-first CSS
 - ✅ Automatic **sitemap.xml**, **robots.txt**, and **manifest** generation
 - ✅ Database support via **Drizzle ORM** and **Neon Serverless Postgres**
+- ✅ Authentication (OAuth2) via **Lucia**
 
 ## Installation
 
