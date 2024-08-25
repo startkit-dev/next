@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - with-auth
   pull_request:
     branches:
       - main
