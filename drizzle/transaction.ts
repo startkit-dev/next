@@ -1,13 +1,13 @@
+import { sql } from "./client"
+
 import type {
   AnyPgDeleteBase,
   AnyPgInsert,
   AnyPgSelect,
   PgUpdateBase
 } from "drizzle-orm/pg-core"
-import { sql } from "./client"
 
-// biome-ignore lint/suspicious/noExplicitAny: Should be exported from drizzle-orm
-type AnyPgUpdate = PgUpdateBase<any, any, any, any, any>
+type AnyPgUpdate = PgUpdateBase<never, never, never, never>
 
 type PgQuery = AnyPgInsert | AnyPgDeleteBase | AnyPgSelect | AnyPgUpdate
 

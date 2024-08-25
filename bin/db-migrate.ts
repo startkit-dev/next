@@ -1,15 +1,18 @@
-import { db } from "@/drizzle/client"
 import { migrate } from "drizzle-orm/neon-http/migrator"
 
+import { db } from "@/drizzle/client"
+
 const main = async () => {
-  try {
-    console.log("Migrating the database ...")
-    await migrate(db, { migrationsFolder: "drizzle/migrations" })
-    console.log("Migration completed")
-  } catch (error) {
-    console.error("Error during migration:", error)
-    process.exit(1)
-  }
+  console.log("Migrating the database ...")
+  await migrate(db, { migrationsFolder: "drizzle/migrations" })
+  console.log("Migration completed")
 }
 
 main()
+  .then(() => {
+    process.exit(0)
+  })
+  .catch((error: unknown) => {
+    console.error("Error during migration:", error)
+    process.exit(1)
+  })

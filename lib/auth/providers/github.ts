@@ -1,6 +1,7 @@
-import { env } from "@/env/server"
 import { GitHub } from "arctic"
 import { z } from "zod"
+
+import { env } from "@/env/server"
 
 const githubUserSchema = z.object({
   id: z.number(),

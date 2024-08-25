@@ -1,7 +1,9 @@
-import type { Session, User } from "lucia"
 import { cookies } from "next/headers"
 import { cache } from "react"
+
 import { lucia } from "./lucia"
+
+import type { Session, User } from "lucia"
 
 type Auth =
   | {
@@ -27,8 +29,8 @@ export const getSession = cache(async (): Promise<Auth> => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
   if (!sessionId) {
     return {
-      user: null,
-      session: null
+      session: null,
+      user: null
     }
   }
 

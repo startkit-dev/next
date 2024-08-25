@@ -1,6 +1,8 @@
-import { lucia } from "@/lib/auth/lucia"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
+
+import { lucia } from "@/lib/auth/lucia"
+
 import { getSession } from "../get-session"
 
 interface ActionResult {

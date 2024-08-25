@@ -45,7 +45,7 @@ export default tseslint.config(
         { prefer: "type-imports" }
       ],
       "@typescript-eslint/no-misused-promises": [
-        "warn",
+        "error",
         {
           checksVoidReturn: false
         }

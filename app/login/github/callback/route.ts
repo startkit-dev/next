@@ -1,9 +1,10 @@
+import { OAuth2RequestError } from "arctic"
+import { cookies } from "next/headers"
+
 import { findOrCreateUserFromOAuth } from "@/lib/auth/find-or-create-user-from-oauth"
 import { lucia } from "@/lib/auth/lucia"
 import { authorizeGithub } from "@/lib/auth/providers/github"
 import { validateOauthCallback } from "@/lib/auth/validate-oauth-callback"
-import { OAuth2RequestError } from "arctic"
-import { cookies } from "next/headers"
 
 export async function GET(req: Request): Promise<Response> {
   const code = validateOauthCallback(req)
@@ -25,10 +26,10 @@ export async function GET(req: Request): Promise<Response> {
       sessionCookie.attributes
     )
     return new Response(null, {
-      status: 302,
       headers: {
         Location: "/"
-      }
+      },
+      status: 302
     })
   } catch (e) {
     if (e instanceof OAuth2RequestError) {

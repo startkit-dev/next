@@ -1,8 +1,9 @@
+import { createId } from "@paralleldrive/cuid2"
+import { and, eq } from "drizzle-orm"
+
 import { db } from "@/drizzle/client"
 import { oauthAccountsTable, usersTable } from "@/drizzle/schema"
 import { transaction } from "@/drizzle/transaction"
-import { createId } from "@paralleldrive/cuid2"
-import { and, eq } from "drizzle-orm"
 
 /**
  * Find or create the user from the OAuth provider.
@@ -45,9 +46,9 @@ export async function findOrCreateUserFromOAuth(
     }),
 
     db.insert(oauthAccountsTable).values({
-      userId,
       providerId,
-      providerUserId: providerUserId.toString()
+      providerUserId: providerUserId.toString(),
+      userId
     })
   )
 
