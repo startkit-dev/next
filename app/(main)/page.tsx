@@ -1,7 +1,8 @@
-import Image from "next/image"
+import { TriangleIcon } from "lucide-react"
 import Link from "next/link"
 
 import { Logo } from "@/components/icons/brand/logo"
+import { OAuthButton } from "@/components/shared/oauth-button"
 import { Button } from "@/components/ui/button"
 import { logout } from "@/lib/auth/actions/logout"
 import { getSession } from "@/lib/auth/get-session"
@@ -27,27 +28,10 @@ export default async function Home() {
         </ol>
 
         <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <Button className="rounded-full" size="lg" variant="default" asChild>
-            <Link
-              href="https://vercel.com/new"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Image
-                alt="Vercel logomark"
-                className="dark:invert"
-                height={20}
-                src="https://nextjs.org/icons/vercel.svg"
-                width={20}
-              />
-              Deploy now
-            </Link>
-          </Button>
-
           {user ? (
-            <form action={logout}>
+            <form action={logout} className="flex-1">
               <Button
-                className="rounded-full"
+                className="w-full gap-2 rounded-full"
                 size="lg"
                 type="submit"
                 variant="secondary"
@@ -56,15 +40,24 @@ export default async function Home() {
               </Button>
             </form>
           ) : (
-            <Button
-              className="rounded-full"
-              size="lg"
-              variant="secondary"
-              asChild
-            >
-              <Link href="/login/github">Login</Link>
-            </Button>
+            <OAuthButton className="rounded-full" provider="github" />
           )}
+
+          <Button
+            className="flex-1 gap-2 rounded-full"
+            size="lg"
+            variant="default"
+            asChild
+          >
+            <Link
+              href="https://vercel.com/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <TriangleIcon className="size-4 fill-current" />
+              Deploy now
+            </Link>
+          </Button>
         </div>
       </div>
     </main>
