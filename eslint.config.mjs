@@ -3,7 +3,7 @@
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat"
 import eslint from "@eslint/js"
 import nextPlugin from "@next/eslint-plugin-next"
-import prettier from "eslint-config-prettier"
+import biome from "eslint-config-biome"
 import importPluginX from "eslint-plugin-import-x"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
@@ -24,7 +24,7 @@ const nextFlatConfig = {
 }
 
 export default tseslint.config(
-  includeIgnoreFile(import.meta.dirname + "/.gitignore"),
+  includeIgnoreFile(`${import.meta.dirname}/.gitignore`),
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
@@ -57,14 +57,6 @@ export default tseslint.config(
       ],
       "import-x/newline-after-import": "error",
       "import-x/no-unresolved": "off",
-      "import-x/order": [
-        "error",
-        {
-          alphabetize: {
-            order: "asc"
-          }
-        }
-      ],
       // @see {@link https://eslint.org/docs/latest/rules/sort-imports}
       "sort-imports": [
         "error",
@@ -123,6 +115,6 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked
   },
 
-  // Prettier at the end, also ignore any errors
-  prettier
+  // Biome at the end to remove any rules covered by biome
+  biome
 )

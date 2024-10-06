@@ -1,13 +1,13 @@
 import "./globals.css"
+import { TailwindIndicator } from "@/components/layout/tailwind-indicator"
+import { siteConfig } from "@/config/site"
+import { fullURL } from "@/lib/url-fns/full-url"
+import { cn } from "@/lib/utils/cn"
 import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 import type { Metadata, Viewport } from "next"
 import { ThemeProvider } from "next-themes"
 import type { PropsWithChildren } from "react"
-import { TailwindIndicator } from "@/components/layout/tailwind-indicator"
-import { siteConfig } from "@/config/site"
-import { fullURL } from "@/lib/url-fns/full-url"
-import { cn } from "@/lib/utils/cn"
 
 export const metadata: Metadata = {
   applicationName: siteConfig.name,
