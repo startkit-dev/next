@@ -1,9 +1,8 @@
+import type { Session, User } from "lucia"
 import { cookies } from "next/headers"
 import { cache } from "react"
 
 import { lucia } from "./lucia"
-
-import type { Session, User } from "lucia"
 
 type Auth =
   | {
@@ -26,7 +25,8 @@ type Auth =
  * ```
  */
 export const getSession = cache(async (): Promise<Auth> => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
+  const cookieStore = await cookies()
+  const sessionId = cookieStore.get(lucia.sessionCookieName)?.value ?? null
   if (!sessionId) {
     return {
       session: null,
@@ -39,7 +39,7 @@ export const getSession = cache(async (): Promise<Auth> => {
   try {
     if (result.session?.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id)
-      cookies().set(
+      cookieStore.set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes
@@ -48,7 +48,7 @@ export const getSession = cache(async (): Promise<Auth> => {
 
     if (!result.session) {
       const sessionCookie = lucia.createBlankSessionCookie()
-      cookies().set(
+      cookieStore.set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes

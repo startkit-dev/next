@@ -1,15 +1,14 @@
 import "./globals.css"
+
 import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
-import { ThemeProvider } from "next-themes"
+import type { Metadata, Viewport } from "next"
+import type { PropsWithChildren } from "react"
 
 import { TailwindIndicator } from "@/components/layout/tailwind-indicator"
 import { siteConfig } from "@/config/site"
 import { fullURL } from "@/lib/url-fns/full-url"
 import { cn } from "@/lib/utils/cn"
-
-import type { Metadata, Viewport } from "next"
-import type { PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
   applicationName: siteConfig.name,
@@ -49,10 +48,8 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           "font-sans antialiased"
         )}
       >
-        <ThemeProvider attribute="class">
-          {children}
-          <TailwindIndicator />
-        </ThemeProvider>
+        {children}
+        <TailwindIndicator />
       </body>
     </html>
   )

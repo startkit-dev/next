@@ -7,7 +7,9 @@ import { authorizeGithub } from "@/lib/auth/providers/github"
 import { validateOauthCallback } from "@/lib/auth/validate-oauth-callback"
 
 export async function GET(req: Request): Promise<Response> {
-  const code = validateOauthCallback(req)
+  const cookieStore = await cookies()
+
+  const code = await validateOauthCallback(req)
   if (!code) {
     return new Response(null, {
       status: 400
@@ -20,7 +22,7 @@ export async function GET(req: Request): Promise<Response> {
     const session = await lucia.createSession(userId, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
 
-    cookies().set(
+    cookieStore.set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes

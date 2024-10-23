@@ -5,20 +5,21 @@ import { lucia } from "@/lib/auth/lucia"
 
 import { getSession } from "../get-session"
 
-interface ActionResult {
+type ActionResult = {
   error: string | null
 }
 
 export async function logout(): Promise<ActionResult> {
   "use server"
 
+  const cookieStore = await cookies()
   const { session } = await getSession()
 
   if (session) {
     await lucia.invalidateSession(session.id)
 
     const sessionCookie = lucia.createBlankSessionCookie()
-    cookies().set(
+    cookieStore.set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes

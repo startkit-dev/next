@@ -1,12 +1,11 @@
 import { RocketIcon } from "lucide-react"
+import type { HTMLAttributes } from "react"
 
 import { cn } from "@/lib/utils/cn"
 
-import type { HTMLAttributes } from "react"
-
 type LogoProps = HTMLAttributes<HTMLDivElement>
 
-export function Logo({ className, ...props }: LogoProps) {
+export function Logo({ className, ...props }: Readonly<LogoProps>) {
   return (
     <span
       className={cn(

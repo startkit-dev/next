@@ -1,10 +1,12 @@
-/** @type {import("prettier").Config} */
-export default {
-  plugins: [],
-  printWidth: 80,
-  semi: false,
-  singleQuote: false,
-  tabWidth: 2,
+/**
+ * @see https://prettier.io/docs/en/configuration.html
+ * @type {import("prettier").Config}
+ */
+const config = {
   trailingComma: "none",
-  useTabs: false
+  tabWidth: 2,
+  semi: false,
+  singleQuote: false
 }
+
+export default config

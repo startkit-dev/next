@@ -12,11 +12,13 @@ import { cookies } from "next/headers"
  *
  * @returns the OAuth code, or undefined if it failed validation
  */
-export function validateOauthCallback(req: Request) {
+export async function validateOauthCallback(req: Request) {
+  const cookieStore = await cookies()
+
   const url = new URL(req.url)
   const code = url.searchParams.get("code")
   const state = url.searchParams.get("state")
-  const storedState = cookies().get("github_oauth_state")?.value ?? null
+  const storedState = cookieStore.get("github_oauth_state")?.value ?? null
 
   if (code && state && state === storedState) {
     return code

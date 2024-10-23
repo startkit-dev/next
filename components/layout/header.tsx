@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils/cn"
-
 import type { HTMLProps } from "react"
+
+import { cn } from "@/lib/utils/cn"
 
 type Props = HTMLProps<HTMLDivElement>
 

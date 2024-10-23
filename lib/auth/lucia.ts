@@ -6,13 +6,14 @@ import { sessionsTable, usersTable } from "@/drizzle/schema"
 import { env } from "@/env/server"
 
 declare module "lucia" {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Register {
     Lucia: typeof lucia
     DatabaseUserAttributes: DatabaseUserAttributes
   }
 }
 
-interface DatabaseUserAttributes {
+type DatabaseUserAttributes = {
   githubId: number
   username: string
 }

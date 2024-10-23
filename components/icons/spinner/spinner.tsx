@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils/cn"
 
 import styles from "./spinner.module.css"
 
-interface Props {
+type Props = {
   className?: string
 }
 

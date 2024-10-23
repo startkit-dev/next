@@ -1,7 +1,7 @@
 "use client"
 
 import { MoonIcon, SunIcon } from "lucide-react"
-import { useTheme } from "next-themes"
+import { ThemeProvider, useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 
-export function ThemeToggle() {
+export function ThemeDropdown() {
   const { setTheme, theme } = useTheme()
 
   return (
@@ -50,5 +50,21 @@ export function ThemeToggle() {
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+/**
+ * A Theme dropdown with the provider wrapping it. The provider is included here
+ * because the theme is not requierd to be used anywhere else in the app by
+ * default.
+ *
+ * If you need this theme variable elsewhere, you can move the ThemeProvider up
+ * higher in the app stack.
+ */
+export function ThemeToggle() {
+  return (
+    <ThemeProvider attribute="class">
+      <ThemeDropdown />
+    </ThemeProvider>
   )
 }
