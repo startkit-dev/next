@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test"
+
 import { env } from "@/env/client"
+
 import { fullURL } from "./full-url"
 
 describe("fullURL()", () => {

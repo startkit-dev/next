@@ -1,16 +1,23 @@
 // @ts-check
 
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat"
 import eslint from "@eslint/js"
 import nextPlugin from "@next/eslint-plugin-next"
-import biome from "eslint-config-biome"
-import importPluginX from "eslint-plugin-import-x"
+import prettier from "eslint-config-prettier"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
+import simpleImportSort from "eslint-plugin-simple-import-sort"
 import tailwind from "eslint-plugin-tailwindcss"
 import globals from "globals"
 import tseslint from "typescript-eslint"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const gitignorePath = path.resolve(__dirname, ".gitignore")
 
 const nextFlatConfig = {
   plugins: {
@@ -24,16 +31,23 @@ const nextFlatConfig = {
 }
 
 export default tseslint.config(
-  includeIgnoreFile(`${import.meta.dirname}/.gitignore`),
+  includeIgnoreFile(gitignorePath),
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   jsxA11y.flatConfigs.recommended,
-  importPluginX.flatConfigs.recommended,
-  importPluginX.flatConfigs.typescript,
   ...tailwind.configs["flat/recommended"],
   // @ts-expect-error - next.js plugin is not properly typed for eslint9
   nextFlatConfig,
+  {
+    plugins: {
+      "simple-import-sort": simpleImportSort
+    },
+    rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error"
+    }
+  },
   {
     languageOptions: {
       parserOptions: {
@@ -42,11 +56,12 @@ export default tseslint.config(
       }
     }
   },
-  /**
-   * Global config
-   */
   {
+    /**
+     * Global config
+     */
     rules: {
+      "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
@@ -54,16 +69,15 @@ export default tseslint.config(
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_"
         }
-      ],
-      "import-x/newline-after-import": "error",
-      "import-x/no-unresolved": "off",
-      // @see {@link https://eslint.org/docs/latest/rules/sort-imports}
-      "sort-imports": [
-        "error",
-        {
-          ignoreDeclarationSort: true
-        }
       ]
+      // "import-x/newline-after-import": "error",
+      // "import-x/no-unresolved": "off",
+      // "sort-imports": [
+      //   "error",
+      //   {
+      //     ignoreDeclarationSort: true
+      //   }
+      // ]
     },
     settings: {
       tailwindcss: {
@@ -93,7 +107,7 @@ export default tseslint.config(
   {
     files: ["**/*.config.{js,mjs,cjs}"],
     rules: {
-      "import-x/no-named-as-default-member": "off"
+      // "import-x/no-named-as-default-member": "off"
     }
   },
   /**
@@ -115,6 +129,9 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked
   },
 
-  // Biome at the end to remove any rules covered by biome
-  biome
+  /**
+   * Disable rules that could conflict with prettier.
+   * This should be the last rule.
+   */
+  prettier
 )

@@ -1,9 +1,10 @@
+import Link from "next/link"
+import type { PropsWithChildren } from "react"
+
 import { Footer } from "@/components/layout/footer"
 import { Header } from "@/components/layout/header"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
-import Link from "next/link"
-import type { PropsWithChildren } from "react"
 
 export default function LegalLayout({ children }: Readonly<PropsWithChildren>) {
   return (

@@ -3,7 +3,7 @@ import { handler } from "typed-route-handler"
 
 export const runtime = "edge"
 
-interface ResponseBody {
+type ResponseBody = {
   pong: string
 }
 
