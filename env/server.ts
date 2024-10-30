@@ -1,10 +1,10 @@
 import { createEnv } from "@t3-oss/env-nextjs"
 
-import { env as shared } from "./shared"
+import { env as client } from "./client"
 
 export const env = createEnv({
   experimental__runtimeEnv: process.env,
-  extends: [shared],
+  extends: [client],
   server: {
     // DATABASE_URL: z.string().url(),
     // OPEN_AI_API_KEY: z.string().min(1)

@@ -1,14 +1,19 @@
 import { createEnv } from "@t3-oss/env-nextjs"
-
-import { env as shared } from "./shared"
+import { vercel } from "@t3-oss/env-nextjs/presets"
+import { z } from "zod"
 
 export const env = createEnv({
+  extends: [vercel()],
   client: {
-    // NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1)
+    NEXT_PUBLIC_HOST: z.string().url().optional()
   },
-  extends: [shared],
+  shared: {
+    NODE_ENV: z
+      .enum(["test", "development", "production"])
+      .default("development")
+  },
   runtimeEnv: {
-    // NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-    //   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_HOST: process.env.NEXT_PUBLIC_HOST,
+    NODE_ENV: process.env.NODE_ENV
   }
 })
