@@ -16,7 +16,6 @@
     "lint:fix": "next lint --fix",
     "outdated": "bunx npm-check-updates --interactive --format group",
     "prebuild": "bun run lint",
-    "setup": "./bin/setup",
     "start": "next start",
     "typecheck": "tsc --noEmit --pretty"
   },
