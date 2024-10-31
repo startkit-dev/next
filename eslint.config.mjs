@@ -5,13 +5,13 @@ import { fileURLToPath } from "node:url"
 
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat"
 import eslint from "@eslint/js"
-import nextPlugin from "@next/eslint-plugin-next"
-import prettier from "eslint-config-prettier"
-import jsxA11y from "eslint-plugin-jsx-a11y"
-import react from "eslint-plugin-react"
-import reactHooks from "eslint-plugin-react-hooks"
-import simpleImportSort from "eslint-plugin-simple-import-sort"
-import tailwind from "eslint-plugin-tailwindcss"
+import pluginNext from "@next/eslint-plugin-next"
+import configPrettier from "eslint-config-prettier"
+import pluginJsxA11y from "eslint-plugin-jsx-a11y"
+import pluginReact from "eslint-plugin-react"
+import pluginImportX from "eslint-plugin-import-x"
+import pluginReactHooks from "eslint-plugin-react-hooks"
+import pluginTailwind from "eslint-plugin-tailwindcss"
 import globals from "globals"
 import tseslint from "typescript-eslint"
 
@@ -22,11 +22,11 @@ const gitignorePath = path.resolve(__dirname, ".gitignore")
 const nextFlatConfig = {
   plugins: {
     // @ts-expect-error - next plugin is not properly typed for eslint9
-    "@next/next": fixupPluginRules(nextPlugin)
+    "@next/next": fixupPluginRules(pluginNext)
   },
   rules: {
-    ...nextPlugin.configs.recommended.rules,
-    ...nextPlugin.configs["core-web-vitals"].rules
+    ...pluginNext.configs.recommended.rules,
+    ...pluginNext.configs["core-web-vitals"].rules
   }
 }
 
@@ -35,19 +35,12 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  jsxA11y.flatConfigs.recommended,
-  ...tailwind.configs["flat/recommended"],
+  pluginJsxA11y.flatConfigs.recommended,
+  pluginImportX.flatConfigs.recommended,
+  pluginImportX.flatConfigs.typescript,
+  ...pluginTailwind.configs["flat/recommended"],
   // @ts-expect-error - next.js plugin is not properly typed for eslint9
   nextFlatConfig,
-  {
-    plugins: {
-      "simple-import-sort": simpleImportSort
-    },
-    rules: {
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error"
-    }
-  },
   {
     languageOptions: {
       parserOptions: {
@@ -56,10 +49,10 @@ export default tseslint.config(
       }
     }
   },
+  /**
+   * Global config
+   */
   {
-    /**
-     * Global config
-     */
     rules: {
       "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
       "@typescript-eslint/no-empty-object-type": "off",
@@ -69,15 +62,14 @@ export default tseslint.config(
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_"
         }
+      ],
+      "import-x/no-unresolved": "off",
+      "sort-imports": [
+        "error",
+        {
+          ignoreDeclarationSort: true
+        }
       ]
-      // "import-x/newline-after-import": "error",
-      // "import-x/no-unresolved": "off",
-      // "sort-imports": [
-      //   "error",
-      //   {
-      //     ignoreDeclarationSort: true
-      //   }
-      // ]
     },
     settings: {
       tailwindcss: {
@@ -90,11 +82,11 @@ export default tseslint.config(
    */
   {
     files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
-    ...reactHooks.configs.recommended,
-    ...react.configs.flat.recommended,
-    ...react.configs.flat["jsx-runtime"],
+    ...pluginReactHooks.configs.recommended,
+    ...pluginReact.configs.flat.recommended,
+    ...pluginReact.configs.flat["jsx-runtime"],
     languageOptions: {
-      ...react.configs.flat.recommended.languageOptions,
+      ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
         ...globals.serviceworker,
         ...globals.browser
@@ -133,5 +125,5 @@ export default tseslint.config(
    * Disable rules that could conflict with prettier.
    * This should be the last rule.
    */
-  prettier
+  configPrettier
 )
