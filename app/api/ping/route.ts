@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { handler } from "typed-route-handler"
+import { type Handler } from "typed-route-handler"
 
 export const runtime = "edge"
 
@@ -7,8 +7,8 @@ type ResponseBody = {
   pong: string
 }
 
-export const GET = handler<ResponseBody>(() => {
+export const GET: Handler<ResponseBody> = () => {
   return NextResponse.json({
     pong: new Date().toISOString()
   })
-})
+}
