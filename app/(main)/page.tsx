@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-
 import { Logo } from "@/components/icons/brand/logo"
 import { Button } from "@/components/ui/button"
 
@@ -30,7 +29,7 @@ export default function Home() {
             asChild
           >
             <Link
-              href="https://vercel.com/new"
+              href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%startkit-dev%2Fnext"
               rel="noopener noreferrer"
               target="_blank"
             >

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { type Handler } from "typed-route-handler"
+import type { Handler } from "typed-route-handler"
 
 export const runtime = "edge"
 

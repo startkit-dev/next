@@ -1,7 +1,6 @@
 import { RocketIcon } from "lucide-react"
-import type { HTMLAttributes } from "react"
-
 import { cn } from "@/lib/utils/cn"
+import type { HTMLAttributes } from "react"
 
 type LogoProps = HTMLAttributes<HTMLDivElement>
 
