@@ -1,13 +1,12 @@
 import { CopyrightIcon } from "lucide-react"
 import Link from "next/link"
-import type { HTMLProps } from "react"
-
 import { GithubIcon } from "@/components/icons/social/github-icon"
 import { XTwitterIcon } from "@/components/icons/social/x-twitter-icon"
 import { ThemeToggle } from "@/components/layout/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils/cn"
+import type { HTMLProps } from "react"
 
 type Props = HTMLProps<HTMLDivElement>
 
