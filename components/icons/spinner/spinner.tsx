@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils/cn"
-
 import styles from "./spinner.module.css"
 
 type Props = {

@@ -1,5 +1,4 @@
 import Link from "next/link"
-
 import { Logo } from "@/components/icons/brand/logo"
 import { OAuthButton } from "@/components/shared/oauth-button"
 import { Button } from "@/components/ui/button"

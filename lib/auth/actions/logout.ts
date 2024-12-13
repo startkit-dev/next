@@ -1,17 +1,11 @@
+"use server"
+
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-
 import { lucia } from "@/lib/auth/lucia"
-
 import { getSession } from "../get-session"
 
-type ActionResult = {
-  error: string | null
-}
-
-export async function logout(): Promise<ActionResult> {
-  "use server"
-
+export async function logout() {
   const cookieStore = await cookies()
   const { session } = await getSession()
 

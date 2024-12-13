@@ -1,6 +1,5 @@
 import { createId } from "@paralleldrive/cuid2"
 import { and, eq } from "drizzle-orm"
-
 import { db } from "@/drizzle/client"
 import { oauthAccountsTable, usersTable } from "@/drizzle/schema"
 import { transaction } from "@/drizzle/transaction"

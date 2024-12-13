@@ -1,6 +1,5 @@
 import { generateState } from "arctic"
 import { cookies } from "next/headers"
-
 import { env } from "@/env/server"
 import { github } from "@/lib/auth/providers/github"
 

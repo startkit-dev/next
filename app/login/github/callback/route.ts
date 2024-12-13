@@ -1,6 +1,5 @@
 import { OAuth2RequestError } from "arctic"
 import { cookies } from "next/headers"
-
 import { findOrCreateUserFromOAuth } from "@/lib/auth/find-or-create-user-from-oauth"
 import { lucia } from "@/lib/auth/lucia"
 import { authorizeGithub } from "@/lib/auth/providers/github"
